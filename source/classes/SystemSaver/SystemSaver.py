@@ -2,21 +2,17 @@ import json
 
 
 class ISerializable(object):
-    def __init__(self):
+    def __init__(self, data: dict = None):
         assert g_saver is not None
         g_saver.register(self)
-
-    def __init_subclass__(cls, **kwargs):
-        global g_saver
-        data = kwargs.get('data', None)
 
         if data is None:
             return
         assert type(data) is dict
-
-        for key, value in data.items():
-            if hasattr(cls, key):
-                setattr(cls, key, value)
+        assert data[self.__class__.__name__] is not None
+        for key, value in data[self.__class__.__name__].items():
+            if hasattr(self, key):
+                setattr(self, key, value)
 
     def getJSON(self):
         return vars(self)
