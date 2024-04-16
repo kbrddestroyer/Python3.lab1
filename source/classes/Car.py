@@ -1,4 +1,4 @@
-from TrafficObject import TrafficObject
+from TrafficObject import TrafficObject, g_trafficObjectPool
 
 
 class Car(TrafficObject):
@@ -7,3 +7,4 @@ class Car(TrafficObject):
         self.__capacity = capacity
         self.__name = name
         super(Car, self).__init__(**kwargs)
+

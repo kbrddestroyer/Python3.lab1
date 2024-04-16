@@ -23,7 +23,8 @@ class ISerializable(object):
 class SystemSaver(object):
     FILENAME = 'test.json'
     DELAYED_TYPES = (
-        'classes.City.City'
+        'classes.City.City',
+        'classes.SmartCity',
     )
 
     def __init__(self):
