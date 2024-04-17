@@ -1,6 +1,11 @@
 from SystemSaver.SystemSaver import ISerializable
 
 
+class TrafficObjectListWrapper(list):
+    def __init__(self, r=list(), dft=None):
+        pass
+
+
 class TrafficObject(ISerializable):
     ID = 0
 
