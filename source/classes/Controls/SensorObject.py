@@ -1,5 +1,7 @@
 from classes.SystemSaver.SystemSaver import ISerializable
 
+g_sensorObjectPool = {}
+
 
 class SensorObject(ISerializable):
     ID = 0
@@ -15,6 +17,3 @@ class SensorObject(ISerializable):
     @property
     def id(self):
         return self.__id
-
-
-g_sensorObjectPool = {}

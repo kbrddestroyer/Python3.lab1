@@ -1,9 +1,6 @@
 from SystemSaver.SystemSaver import ISerializable
 
-
-class TrafficObjectListWrapper(list):
-    def __init__(self, r=list(), dft=None):
-        pass
+g_trafficObjectPool = {}
 
 
 class TrafficObject(ISerializable):
@@ -11,15 +8,20 @@ class TrafficObject(ISerializable):
 
     def __init__(self, **kwargs):
         global g_trafficObjectPool
-        super(TrafficObject, self).__init__(**kwargs)
-
         self.__id = self.ID
         self.ID += 1
-        g_trafficObjectPool[id] = self
+
+        self.capacity = kwargs.get('capacity', 0)
+        self.pollution = kwargs.get('pollution', 0)
+        self.speed = kwargs.get('speed', 0)
+
+        super(TrafficObject, self).__init__(**kwargs)
+
+        g_trafficObjectPool[self.__id] = self
 
     @property
     def id(self):
         return self.__id
 
-
-g_trafficObjectPool = {}
+    def __str__(self):
+        return f'CAPACITY: {self.capacity}\nPOLLUTION PERCENTAGE: {self.pollution * 100}%\nSPEED AVG {self.speed}\n'

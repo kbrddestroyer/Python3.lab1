@@ -1,13 +1,12 @@
 import json
 from pydoc import locate
-
-import classes.City
+import classes
 
 
 class ISerializable(object):
     def __init__(self, **kwargs):
-        assert g_saver is not None
-        g_saver.register(self)
+        assert classes.g_saver is not None
+        classes.g_saver.register(self)
         data = kwargs.get('data', None)
         if data is None:
             return
@@ -75,4 +74,4 @@ class SystemSaver(object):
         return result
 
 
-g_saver = SystemSaver()
+classes.g_saver = SystemSaver()
