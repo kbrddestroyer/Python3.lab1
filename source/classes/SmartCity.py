@@ -3,9 +3,9 @@ from classes.Controls.SensorObject import SensorObject, g_sensorObjectPool
 from classes.Controls.Sensors.GasSensor import GasSensor, POLLUTION_LEVEL
 
 
-class SensorListWrapper(list):
-    def __init__(self, c_list):
-        super(SensorListWrapper, self).__init__(c_list)
+class SensorDictWrapper(dict):
+    def __init__(self, c_dict):
+        super(SensorDictWrapper, self).__init__(c_dict)
 
     def __getitem__(self, item):
         return g_sensorObjectPool[super().__getitem__(item)]
@@ -13,9 +13,9 @@ class SensorListWrapper(list):
 
 class SmartCity(City):
     def __init__(self, **kwargs):
-        self.c_sensors: list[SensorObject] = [GasSensor().id]     # Storage of sensors
+        self.c_sensors = {GasSensor: GasSensor().id}     # Storage of sensors
         super(SmartCity, self).__init__(**kwargs)
-        self.sensors = SensorListWrapper(self.c_sensors)
+        self.sensors = SensorDictWrapper(self.c_sensors)
 
     def onVehicleAdded(self, pollution):
         for sensor in self.sensors:

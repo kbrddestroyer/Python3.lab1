@@ -46,7 +46,11 @@ class SystemSaver(object):
 
     def load(self):
         input = open(self.FILENAME, 'r')
-        data = json.loads(input.read())
+        rawData = input.read()
+        if len(rawData) == 0:
+            return []
+
+        data = json.loads(rawData)
 
         result = []     # Result pool
         delayed = []    # Delayer creation pool

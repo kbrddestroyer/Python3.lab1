@@ -1,8 +1,5 @@
-import copy
-
 from SystemSaver.SystemSaver import ISerializable
 from TrafficObject import TrafficObject, g_trafficObjectPool
-from Car import Car
 
 
 class TransportListWrapper(list):
@@ -17,6 +14,11 @@ class TransportListWrapper(list):
         super().append(__object.id)
         if hasattr(self.root, 'onVehicleAdded'):
             self.root.onVehicleAdded(__object.pollution)
+
+    def remove(self, __value):
+        super().remove(__value)
+        if hasattr(self.root, 'onVehicleRemoved'):
+            self.root.onVehicleRemoved()
 
 
 class City(ISerializable):

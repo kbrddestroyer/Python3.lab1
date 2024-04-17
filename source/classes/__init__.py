@@ -1,1 +1,1 @@
-g_saver = None
+global g_saver
