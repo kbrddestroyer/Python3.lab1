@@ -13,9 +13,12 @@ class SensorDictWrapper(dict):
 
 class SmartCity(City):
     def __init__(self, **kwargs):
-        self.c_sensors = {GasSensor: GasSensor().id}     # Storage of sensors
+        self.c_sensors = {}     # Storage of sensors
         super(SmartCity, self).__init__(**kwargs)
-        self.sensors = SensorDictWrapper(self.c_sensors)
+
+    @property
+    def sensors(self):
+        return SensorDictWrapper(self.c_sensors)
 
     def onVehicleAdded(self, pollution):
         for sensor in self.sensors:
@@ -26,3 +29,7 @@ class SmartCity(City):
         for sensor in self.sensors:
             if type(sensor) is GasSensor:
                 sensor.onRemoveVehicle(pollution)
+
+    def __str__(self):
+        return f'{super().__str__()}\n' \
+               f'TOTAL SENSORS: {len(self.c_sensors)}'

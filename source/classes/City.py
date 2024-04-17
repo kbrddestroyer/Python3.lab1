@@ -26,4 +26,11 @@ class City(ISerializable):
         self.name: str = kwargs.get('name', 'undefined')
         self.c_transport: list[TrafficObject] = []  # Storage of transport
         super(City, self).__init__(**kwargs)
-        self.transport = TransportListWrapper(self.c_transport, self)
+
+    @property
+    def transport(self):
+        return TransportListWrapper(self.c_transport, self)
+
+    def __str__(self):
+        return f'NAME: {self.name}\n' \
+               f'TOTAL TRANSPORT: {len(self.c_transport)}'

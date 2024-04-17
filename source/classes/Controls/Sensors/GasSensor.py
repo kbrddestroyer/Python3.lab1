@@ -4,9 +4,9 @@ from classes.Controls.SensorObject import SensorObject
 
 
 class POLLUTION_LEVEL(enum.Enum):
-    HIGH = 'High'
-    AVERAGE = 'Average'
-    LOW = 'Low'
+    HIGH = 'HIGH'
+    AVERAGE = 'AVERAGE'
+    LOW = 'LOW'
 
     @staticmethod
     def getLevelByMetrics(pollution: float):
@@ -34,4 +34,9 @@ class GasSensor(SensorObject):
 
     @property
     def averagePollution(self):
+        if self.__vehicles == 0:
+            return 0
         return self.__pollution / self.__vehicles
+
+    def __str__(self):
+        return f'CITY POLLUTION ESTIMATED AS {POLLUTION_LEVEL.getLevelByMetrics(self.averagePollution).value}'

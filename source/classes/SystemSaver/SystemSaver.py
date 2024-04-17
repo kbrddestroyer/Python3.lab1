@@ -15,6 +15,9 @@ class ISerializable(object):
             if hasattr(self, key):
                 setattr(self, key, value)
 
+    def __del__(self):
+        classes.g_saver.unregister(self)
+
     def getJSON(self):
         return vars(self)
 
@@ -31,6 +34,9 @@ class SystemSaver(object):
 
     def register(self, serializable):
         self.__serializables.append(serializable)
+
+    def unregister(self, serializable):
+        self.__serializables.remove(serializable)
 
     def save(self):
         output = open(self.FILENAME, 'w')
