@@ -1,15 +1,18 @@
 from SystemSaver.SystemSaver import ISerializable
+import globals
 
-g_trafficObjectPool = {}
+ID = 0
 
+if not hasattr(globals, 'g_trafficObjectPool'):
+    globals.g_trafficObjectPool = {}
 
 class TrafficObject(ISerializable):
-    ID = 0
-
     def __init__(self, **kwargs):
-        global g_trafficObjectPool
-        self.__id = self.ID
-        self.ID += 1
+        global ID
+        if not ID:
+            ID = 0
+        self.__id = ID
+        ID += 1
 
         self.capacity = kwargs.get('capacity', 0)
         self.pollution = kwargs.get('pollution', 0)
@@ -17,7 +20,7 @@ class TrafficObject(ISerializable):
 
         super(TrafficObject, self).__init__(**kwargs)
 
-        g_trafficObjectPool[self.__id] = self
+        globals.g_trafficObjectPool[self.__id] = self
 
     @property
     def id(self):

@@ -1,22 +1,27 @@
 from SystemSaver.SystemSaver import ISerializable
-from TrafficObject import TrafficObject, g_trafficObjectPool
+from TrafficObject import TrafficObject
+import globals
 
 
-class TransportListWrapper(list):
+class TransportListWrapper(object):
     def __init__(self, c_list, root):
-        super(TransportListWrapper, self).__init__(c_list)
         self.root = root
+        self.c_list = c_list
 
     def __getitem__(self, item):
-        return g_trafficObjectPool[super().__getitem__(item)]
+        return globals.g_trafficObjectPool[self.c_list[item]]
+
+    def __iter__(self):
+        yield from [x for x in globals.g_trafficObjectPool.values() if x.id in self.c_list]
+
 
     def append(self, __object: TrafficObject):
-        super().append(__object.id)
+        self.c_list.append(__object.id)
         if hasattr(self.root, 'onVehicleAdded'):
             self.root.onVehicleAdded(__object.pollution)
 
-    def remove(self, __value):
-        super().remove(__value)
+    def remove(self, __value: TrafficObject):
+        self.c_list.remove(__value.id)
         if hasattr(self.root, 'onVehicleRemoved'):
             self.root.onVehicleRemoved()
 

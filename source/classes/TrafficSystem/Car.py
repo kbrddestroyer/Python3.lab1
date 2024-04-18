@@ -1,4 +1,4 @@
-from TrafficObject import TrafficObject, g_trafficObjectPool
+from classes.TrafficObject import TrafficObject
 
 
 class Car(TrafficObject):

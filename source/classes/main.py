@@ -1,4 +1,7 @@
 from classes.SmartCity import SmartCity
+from TrafficObject import TrafficObject
+from TrafficSystem.Car import Car
+from TrafficSystem.PublicTransport import PublicTransport
 from SystemSaver.SystemSaver import *
 
 
@@ -37,10 +40,12 @@ class Main(object):
                 print('REQUEST NAME: (quit to abort)')
                 key = input(': ')
                 if key.lower() == 'quit':
-                    return
+                    continue
                 if key not in self.__city.sensors.keys():
                     print('Sensor not found')
                 print(self.__city.sensors[key])
+            elif key == '5':
+                self.__addTransport()
             input()
 
     def __displayMenu(self):
@@ -49,6 +54,7 @@ class Main(object):
         print('2. Get transport')
         print('3. Get services')
         print('4. Get sensors')
+        print('5. Add transport')
         print('q. Quit')
         return input(':')
 
@@ -68,6 +74,25 @@ class Main(object):
     def __getTransport(self):
         for transport in self.__city.transport:
             print(transport)
+
+    def __addTransport(self):
+        print('TRANSPORT MENU')
+        print('TYPE: ')
+        type = input('(1 - Car | 2 - Public) ')
+
+        ob = None
+
+        name = input('Name your transport: ')
+        if type == '1':
+            manufacturer = input('Manufacturer: ')
+            ob = Car(name=name, manufacturer=manufacturer)
+        elif type == '2':
+            tr_type = input('Type: ')
+            route = input('Route No: ')
+            ob = PublicTransport(name=name, route=route, type=tr_type)
+        else:
+            print('Invalid type. Try again')
+        self.__city.transport.append(ob)
 
     def __del__(self):
         self.g_saver.save()

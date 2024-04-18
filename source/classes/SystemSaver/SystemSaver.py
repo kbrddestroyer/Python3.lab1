@@ -51,8 +51,12 @@ class SystemSaver(object):
         print('saved')
 
     def load(self):
-        input = open(self.FILENAME, 'r')
-        rawData = input.read()
+        try:
+            inputData = open(self.FILENAME, 'r')
+        except FileNotFoundError:
+            print('System dump not found. DEFAULT:')
+            return []
+        rawData = inputData.read()
         if len(rawData) == 0:
             return []
 
@@ -82,6 +86,10 @@ class SystemSaver(object):
             for setting in settings:
                 result.append(driver(data=setting))
         return result
+
+    def __del__(self):
+        for serializable in self.__serializables:
+            del serializable
 
 
 classes.g_saver = SystemSaver()
