@@ -4,6 +4,7 @@ from TrafficSystem.Car import Car
 from TrafficSystem.PublicTransport import PublicTransport
 from SystemSaver.SystemSaver import *
 
+from Controls.TrafficManager import TrafficManager
 
 class Main(object):
     EXIT = 'q'
@@ -19,7 +20,7 @@ class Main(object):
 
         if self.__city is None:
             self.__initCity()
-
+        self.__trafficManager = TrafficManager(self.__city)
         self.__loop()
 
     def __loop(self):
@@ -47,12 +48,9 @@ class Main(object):
             elif key == '5':
                 self.__addTransport()
             elif key == '6':
-                self.__getTransport()
-                key = int(input('ID: '))
-                if key >= len(self.__city.c_transport):
-                    print('Invalid ID')
-                    continue
-                self.__city.transport.removeById(key)
+                self.__trafficManager.removeTransport()
+            elif key == '7':
+                self.__trafficManager.getTrafficControlStats()
 
             input()
 
@@ -85,23 +83,7 @@ class Main(object):
             print(f'ID: {ID}\n{transport}')
 
     def __addTransport(self):
-        print('TRANSPORT MENU')
-        print('TYPE: ')
-        type = input('(1 - Car | 2 - Public) ')
-
-        ob = None
-
-        name = input('Name your transport: ')
-        if type == '1':
-            manufacturer = input('Manufacturer: ')
-            ob = Car(name=name, manufacturer=manufacturer)
-        elif type == '2':
-            tr_type = input('Type: ')
-            route = input('Route No: ')
-            ob = PublicTransport(name=name, route=route, type=tr_type)
-        else:
-            print('Invalid type. Try again')
-        self.__city.transport.append(ob)
+        self.__trafficManager.addTransport()
 
     def __del__(self):
         self.g_saver.save()

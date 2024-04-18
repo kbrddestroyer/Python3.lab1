@@ -8,6 +8,10 @@ class TrafficControl(SensorObject):
         super(TrafficControl, self).__init__(**kwargs)
 
     def countPassengerFlow(self, vehicles: list[TrafficObject]):
+        if len(vehicles) == 0:
+            self.__passengerFlow = 0
+            return 0
+
         for vehicle in vehicles:
             self.__passengerFlow += vehicle.capacity
         self.__passengerFlow /= len(vehicles)
@@ -17,10 +21,5 @@ class TrafficControl(SensorObject):
     def passengerFlow(self):
         return self.__passengerFlow
 
-    @staticmethod
-    def addVehicle(listWrapper: list[TrafficObject], trafficObject: TrafficObject):
-        listWrapper.append(trafficObject)
-
-    @staticmethod
-    def removeVehicle(listWrapper: list[TrafficObject], trafficObject: TrafficObject):
-        listWrapper.remove(trafficObject)
+    def __str__(self):
+        return f'PASSENGER FLOW: {self.__passengerFlow} per vehicle'
