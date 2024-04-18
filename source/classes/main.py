@@ -1,10 +1,10 @@
 from classes.SmartCity import SmartCity
-from TrafficObject import TrafficObject
-from TrafficSystem.Car import Car
-from TrafficSystem.PublicTransport import PublicTransport
+from classes.Service.EnergyOptimisationService import EnergyOptimisationService
 from SystemSaver.SystemSaver import *
+from classes.Service.Service import Service
 
-from Controls.TrafficManager import TrafficManager
+from classes.Service.TrafficManager import TrafficManager
+
 
 class Main(object):
     EXIT = 'q'
@@ -21,6 +21,7 @@ class Main(object):
         if self.__city is None:
             self.__initCity()
         self.__trafficManager = TrafficManager(self.__city)
+        self.__energyOptimisation = EnergyOptimisationService(self.__city.sensors['ElectricitySensor'])
         self.__loop()
 
     def __loop(self):
@@ -34,7 +35,7 @@ class Main(object):
             elif key == '2':
                 self.__getTransport()
             elif key == '3':
-                pass
+                Service.printServices()
             elif key == '4':
                 for k in self.__city.c_sensors.keys():
                     print(k)
@@ -52,7 +53,7 @@ class Main(object):
             elif key == '7':
                 self.__trafficManager.getTrafficControlStats()
             elif key == '8':
-                self.__city.sensors['ElectricitySensor'].optimise()
+                self.__energyOptimisation.optimise()
                 print(f'Optimised electricity flow in {self.__city.name}')
                 print(self.__city.sensors['ElectricitySensor'])
             elif key == '9':

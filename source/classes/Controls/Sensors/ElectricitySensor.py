@@ -7,9 +7,6 @@ class ElectricitySensor(SensorObject):
         super(ElectricitySensor, self).__init__(**kwargs)
         ElectricitySensor.counter = 0
 
-    def optimise(self):
-        self.electricityFlow *= 0.95
-
     def tick(self):
         if not ElectricitySensor.counter:
             ElectricitySensor.counter = 0

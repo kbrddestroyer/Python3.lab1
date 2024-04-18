@@ -6,8 +6,8 @@ from classes.Controls.Sensors.ElectricitySensor import ElectricitySensor
 
 
 class SensorDictWrapper(object):
-    def __init__(self, c_dict):
-        self.c_dict = c_dict
+    def __init__(self, c_dict: dict):
+        self.c_dict: dict = c_dict
 
     def __getitem__(self, item):
         return g_sensorObjectPool[self.c_dict[item]]
@@ -17,6 +17,12 @@ class SensorDictWrapper(object):
 
     def __len__(self):
         return len(self.c_dict)
+
+    def keys(self):
+        return self.c_dict.keys()
+
+    def values(self):
+        return self.c_dict.values()
 
 
 class SmartCity(City):

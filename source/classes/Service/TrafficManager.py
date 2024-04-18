@@ -3,11 +3,14 @@ from classes.Controls.Sensors.TrafficControl import TrafficControl
 from classes.TrafficSystem.Car import Car
 from classes.TrafficSystem.PublicTransport import PublicTransport
 
+from classes.Service.Service import Service
 
-class TrafficManager(object):
+
+class TrafficManager(Service):
     def __init__(self, city: SmartCity):
         self.__city = city
         self.__trafficControl: TrafficControl = self.__city.sensors['TrafficControl']
+        super(TrafficManager, self).__init__()
 
     def getTransport(self):
         for ID, transport in enumerate(self.__city.transport):
@@ -50,3 +53,7 @@ class TrafficManager(object):
     def getTrafficControlStats(self):
         self.__trafficControl.countPassengerFlow(self.__city.transport)
         print(self.__trafficControl)
+
+    def __str__(self):
+        self.__trafficControl.countPassengerFlow(self.__city.transport)
+        return self.__trafficControl.__str__()
