@@ -2,14 +2,21 @@ from classes.City import City
 from classes.Controls.SensorObject import g_sensorObjectPool
 from classes.Controls.Sensors.GasSensor import GasSensor
 from classes.Controls.Sensors.TrafficControl import TrafficControl
+from classes.Controls.Sensors.ElectricitySensor import ElectricitySensor
 
 
-class SensorDictWrapper(dict):
+class SensorDictWrapper(object):
     def __init__(self, c_dict):
-        super(SensorDictWrapper, self).__init__(c_dict)
+        self.c_dict = c_dict
 
     def __getitem__(self, item):
-        return g_sensorObjectPool[super().__getitem__(item)]
+        return g_sensorObjectPool[self.c_dict[item]]
+
+    def __iter__(self):
+        yield from [g_sensorObjectPool[x] for x in self.c_dict.values()]
+
+    def __len__(self):
+        return len(self.c_dict)
 
 
 class SmartCity(City):
@@ -36,6 +43,7 @@ class SmartCity(City):
         if len(self.c_sensors) == 0:
             self.c_sensors[GasSensor.__name__] = GasSensor().id
             self.c_sensors[TrafficControl.__name__] = TrafficControl().id
+            self.c_sensors[ElectricitySensor.__name__] = ElectricitySensor().id
 
     def __str__(self):
         return f'{super().__str__()}\n' \

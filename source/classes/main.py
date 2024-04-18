@@ -51,6 +51,21 @@ class Main(object):
                 self.__trafficManager.removeTransport()
             elif key == '7':
                 self.__trafficManager.getTrafficControlStats()
+            elif key == '8':
+                self.__city.sensors['ElectricitySensor'].optimise()
+                print(f'Optimised electricity flow in {self.__city.name}')
+                print(self.__city.sensors['ElectricitySensor'])
+            elif key == '9':
+                print('[CITY INFORMATION]')
+                print(self.__city)
+                print('[SENSORS]')
+                print(f'TOTAL: {len(self.__city.sensors)}')
+                for sensor in self.__city.sensors:
+                    print(f'[{str(sensor.__class__.__name__).upper()}]')
+                    print(sensor)
+                print('[TRAFFIC]')
+                self.__trafficManager.getTransport()
+            self.__city.sensors['ElectricitySensor'].tick()
 
             input('Press any key...')
 
@@ -63,6 +78,8 @@ class Main(object):
         print('5. Add transport')
         print('6. Remove transport')
         print('7. Fast traffic stats')
+        print('8. Energy flow optimisation')
+        print('9. Print data')
         print('q. Quit')
         return input(':')
 

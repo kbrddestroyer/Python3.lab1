@@ -6,6 +6,7 @@ ID = 0
 if not hasattr(globals, 'g_trafficObjectPool'):
     globals.g_trafficObjectPool = {}
 
+
 class TrafficObject(ISerializable):
     def __init__(self, **kwargs):
         global ID

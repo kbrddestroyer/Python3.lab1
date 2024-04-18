@@ -1,1 +1,2 @@
 global g_trafficObjectPool
+global g_services
