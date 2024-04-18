@@ -5,6 +5,8 @@ from classes.TrafficSystem.PublicTransport import PublicTransport
 
 from classes.Service.Service import Service
 
+# Сервисный класс для ввода/вывода информации о транспорте
+
 
 class TrafficManager(Service):
     def __init__(self, city: SmartCity):

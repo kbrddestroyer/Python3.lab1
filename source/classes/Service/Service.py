@@ -3,6 +3,8 @@ import classes.globals
 if not hasattr(classes.globals, 'g_services'):
     classes.globals.g_services = {}
 
+# Все сервисы помещены в пул
+
 
 class Service(object):
     def __init__(self):

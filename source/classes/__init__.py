@@ -1,1 +1,1 @@
-global g_saver
+global g_saver  # ссылка на SystemSaver
