@@ -17,8 +17,8 @@ class TransportListWrapper(object):
     def __len__(self):
         return len(self.c_list)
 
-    def removeById(self, id: int):
-        self.c_list.remove(self.c_list[id])
+    def removeById(self, __id: int):
+        self.c_list.remove(self.c_list[__id])
 
 
     def append(self, __object: TrafficObject):

@@ -1,6 +1,10 @@
+import pytest
+
 from classes.SmartCity import SmartCity
 from classes.TrafficSystem.Car import Car
+
 import classes
+import classes.globals
 
 
 def test_g_saver(monkeypatch):
@@ -18,7 +22,18 @@ def test_g_saver(monkeypatch):
     assert len(save_data) > 0
 
 
-def test_CityCreation(monkeypatch):
+def test_CityCreation():
     smartcity = SmartCity()
     assert len(smartcity.c_sensors) > 0 # Check is all sensors are created correctly
+    assert 'GasSensor' in smartcity.sensors
 
+
+@pytest.mark.parametrize('name', ['Renault', 'Nissan'])
+def test_entityCreation(name):
+    smartCity = SmartCity()
+    car = Car(name=name)
+    smartCity.transport.append(car)
+
+    assert car.name == name
+    assert car.id in classes.globals.g_trafficObjectPool
+    assert car in smartCity.transport

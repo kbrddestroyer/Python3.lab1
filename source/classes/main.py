@@ -52,7 +52,7 @@ class Main(object):
             elif key == '7':
                 self.__trafficManager.getTrafficControlStats()
 
-            input()
+            input('Press any key...')
 
     def __displayMenu(self):
         print('MENU: ')
@@ -62,6 +62,7 @@ class Main(object):
         print('4. Get sensors')
         print('5. Add transport')
         print('6. Remove transport')
+        print('7. Fast traffic stats')
         print('q. Quit')
         return input(':')
 
