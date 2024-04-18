@@ -1,6 +1,7 @@
 from City import City
 from classes.Controls.SensorObject import SensorObject, g_sensorObjectPool
 from classes.Controls.Sensors.GasSensor import GasSensor, POLLUTION_LEVEL
+from classes.Controls.Sensors.TrafficControl import TrafficControl
 
 
 class SensorDictWrapper(dict):
@@ -15,6 +16,7 @@ class SmartCity(City):
     def __init__(self, **kwargs):
         self.c_sensors = {}     # Storage of sensors
         super(SmartCity, self).__init__(**kwargs)
+        self.__initSensors()
 
     @property
     def sensors(self):
@@ -29,6 +31,11 @@ class SmartCity(City):
         for sensor in self.sensors:
             if type(sensor) is GasSensor:
                 sensor.onRemoveVehicle(pollution)
+
+    def __initSensors(self):
+        if len(self.c_sensors) == 0:
+            self.c_sensors[GasSensor.__name__] = GasSensor().id
+            self.c_sensors[TrafficControl.__name__] = TrafficControl().id
 
     def __str__(self):
         return f'{super().__str__()}\n' \

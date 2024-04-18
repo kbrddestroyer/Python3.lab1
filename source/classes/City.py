@@ -14,6 +14,9 @@ class TransportListWrapper(object):
     def __iter__(self):
         yield from [x for x in globals.g_trafficObjectPool.values() if x.id in self.c_list]
 
+    def removeById(self, id: int):
+        self.c_list.remove(self.c_list[id])
+
 
     def append(self, __object: TrafficObject):
         self.c_list.append(__object.id)

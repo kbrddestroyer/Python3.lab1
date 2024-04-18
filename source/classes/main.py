@@ -46,6 +46,14 @@ class Main(object):
                 print(self.__city.sensors[key])
             elif key == '5':
                 self.__addTransport()
+            elif key == '6':
+                self.__getTransport()
+                key = int(input('ID: '))
+                if key >= len(self.__city.c_transport):
+                    print('Invalid ID')
+                    continue
+                self.__city.transport.removeById(key)
+
             input()
 
     def __displayMenu(self):
@@ -55,6 +63,7 @@ class Main(object):
         print('3. Get services')
         print('4. Get sensors')
         print('5. Add transport')
+        print('6. Remove transport')
         print('q. Quit')
         return input(':')
 
@@ -72,8 +81,8 @@ class Main(object):
             exit(0)
 
     def __getTransport(self):
-        for transport in self.__city.transport:
-            print(transport)
+        for ID, transport in enumerate(self.__city.transport):
+            print(f'ID: {ID}\n{transport}')
 
     def __addTransport(self):
         print('TRANSPORT MENU')
