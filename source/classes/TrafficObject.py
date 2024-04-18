@@ -1,5 +1,5 @@
-from SystemSaver.SystemSaver import ISerializable
-import globals
+from classes.SystemSaver.SystemSaver import ISerializable
+import classes.globals as globals
 
 ID = 0
 

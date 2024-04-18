@@ -1,6 +1,6 @@
-from SystemSaver.SystemSaver import ISerializable
-from TrafficObject import TrafficObject
-import globals
+from classes.SystemSaver.SystemSaver import ISerializable
+from classes.TrafficObject import TrafficObject
+import classes.globals as globals
 
 
 class TransportListWrapper(object):

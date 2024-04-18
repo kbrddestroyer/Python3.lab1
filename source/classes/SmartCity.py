@@ -1,6 +1,6 @@
-from City import City
-from classes.Controls.SensorObject import SensorObject, g_sensorObjectPool
-from classes.Controls.Sensors.GasSensor import GasSensor, POLLUTION_LEVEL
+from classes.City import City
+from classes.Controls.SensorObject import g_sensorObjectPool
+from classes.Controls.Sensors.GasSensor import GasSensor
 from classes.Controls.Sensors.TrafficControl import TrafficControl
 
 
