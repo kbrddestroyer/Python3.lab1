@@ -1,5 +1,7 @@
 from classes.TrafficObject import TrafficObject
 
+# Наследник TrafficObject
+# Выступает в роли модели общественного транспорта в городе
 
 class PublicTransport(TrafficObject):
     def __init__(self, **kwargs):

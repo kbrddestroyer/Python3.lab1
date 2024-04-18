@@ -6,6 +6,8 @@ from classes.Controls.Sensors.ElectricitySensor import ElectricitySensor
 
 
 class SensorDictWrapper(object):
+    # см. TransportListWrapper
+    # то же самое, но для dict
     def __init__(self, c_dict: dict):
         self.c_dict: dict = c_dict
 
@@ -27,23 +29,19 @@ class SensorDictWrapper(object):
 
 class SmartCity(City):
     def __init__(self, **kwargs):
-        self.c_sensors = {}     # Storage of sensors
+        self.c_sensors = {}                         # ID всех сенсоров
         super(SmartCity, self).__init__(**kwargs)
-        self.__initSensors()
+        self.__initSensors()                        # инициализация если сенсоры не обнаружены
 
     @property
     def sensors(self):
-        return SensorDictWrapper(self.c_sensors)
+        return SensorDictWrapper(self.c_sensors)    # словарб с прослойкой для получения ссылок сенсоров
 
-    def onVehicleAdded(self, pollution):
-        for sensor in self.sensors:
-            if type(sensor) is GasSensor:
-                sensor.onAddVehicle(pollution)
+    def onVehicleAdded(self, pollution):            # Уведомление сенсора о новом транспортном объекте
+        self.sensors['GasSensor'].onAddVehicle(pollution)
 
-    def onVehicleRemoved(self, pollution):
-        for sensor in self.sensors:
-            if type(sensor) is GasSensor:
-                sensor.onRemoveVehicle(pollution)
+    def onVehicleRemoved(self, pollution):          # Уведомление об удалении
+        self.sensors['GasSensor'].onRemoveVehicle(pollution)
 
     def __initSensors(self):
         if len(self.c_sensors) == 0:
