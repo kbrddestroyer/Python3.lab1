@@ -54,3 +54,4 @@ Unit-тесты работают с pytest и monkeypatch
 - [Monkeypatch (Hexlet)](https://ru.hexlet.io/courses/python-advanced-testing/lessons/monkey-patching/theory_unit)
 - [hasattr, setattr, etc.](https://proghunter.ru/articles/working-with-object-attributes-in-python-hasattr-delattr-setattr-getattr-functions)
 - [JSON](https://habr.com/ru/articles/554274/)
+- [PlantUML Plugin](https://plugins.jetbrains.com/plugin/7017-plantuml-integration)
