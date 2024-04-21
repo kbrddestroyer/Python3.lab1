@@ -1,6 +1,6 @@
 from classes.SmartCity import SmartCity
 from classes.Service.EnergyOptimisationService import EnergyOptimisationService
-from SystemSaver.SystemSaver import *
+from classes.SystemSaver.SystemSaver import *
 from classes.Service.Service import Service
 
 from classes.Service.TrafficManager import TrafficManager
