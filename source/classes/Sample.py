@@ -10,6 +10,17 @@ if __name__ == "__main__":
     _: dict = {}
     _: tuple = (1, 2, 3)
 
+    d = {
+        'key': 'value',
+        'name': 0,
+        12: False,
+        3: (1, 2),
+        'dict': {
+
+        },
+        'list': [1, 2]
+    }
+
 
     class Class(object):
         STATIC = 0

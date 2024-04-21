@@ -4,6 +4,7 @@ from classes.TrafficObject import TrafficObject
 # Логика личного транспорта
 # выступает в роли модели легковых машин в городе
 
+
 class Car(TrafficObject):
     def __init__(self, **kwargs):
         self.name = kwargs.get('name', 'undefined')

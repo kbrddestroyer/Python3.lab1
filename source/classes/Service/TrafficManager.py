@@ -50,7 +50,9 @@ class TrafficManager(Service):
         if key >= len(self.__city.c_transport):
             print('Invalid ID')
             return
+        transport = self.__city.transport[key]
         self.__city.transport.removeById(key)
+        del transport
 
     def getTrafficControlStats(self):
         self.__trafficControl.countPassengerFlow(self.__city.transport)

@@ -20,5 +20,5 @@ class Service(object):
             return
         if name not in classes.globals.g_services.keys():
             print('Service not found')
-
+            return
         print(classes.globals.g_services[name])

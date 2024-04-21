@@ -15,6 +15,7 @@ def test_g_saver(monkeypatch):
     def mock_save(self):
         for serializable in self._SystemSaver__serializables:
             save_data.append(serializable)
+
     monkeypatch.setattr(classes.g_saver, 'save', mock_save)
     Car()
     classes.g_saver.save(classes.g_saver)
@@ -25,7 +26,7 @@ def test_g_saver(monkeypatch):
 def test_CityCreation():
     smartcity = SmartCity()
     assert len(smartcity.c_sensors) > 0 # Check is all sensors are created correctly
-    assert 'GasSensor' in smartcity.sensors
+    assert 'GasSensor' in smartcity.sensors.keys()
 
 
 @pytest.mark.parametrize('name', ['Renault', 'Nissan'])

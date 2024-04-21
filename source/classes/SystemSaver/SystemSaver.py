@@ -98,7 +98,7 @@ class SystemSaver(object):
 
         for classname, settings in data.items():
             driver = locate(classname)
-            if classname in self.DELAYED_TYPES:
+            if classname in SystemSaver.DELAYED_TYPES:
                 delayed.append((driver, settings))
                 continue
             assert driver is not None
