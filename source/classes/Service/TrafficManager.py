@@ -30,10 +30,24 @@ class TrafficManager(Service):
         ob = None
 
         name = input('Name your transport: ')
-        capacity = int(input('Capacity: '))
-        pollution = float(input('Pollution: '))
-        speed = int(input('Speed: '))
-
+        capacity = 0
+        while capacity <= 0:
+            try:
+                capacity = int(input('Capacity: '))
+            except ValueError:
+                capacity = 0
+        pollution = 0
+        while pollution <= 0:
+            try:
+                pollution = float(input('Pollution: '))
+            except ValueError:
+                pollution = 0
+        speed = 0
+        while speed <= 0:
+            try:
+                speed = int(input('Speed: '))
+            except ValueError:
+                speed = 0
         if type == 1:
             manufacturer = input('Manufacturer: ')
             ob = Car(name=name, manufacturer=manufacturer, capacity=capacity, pollution=pollution, speed=speed)

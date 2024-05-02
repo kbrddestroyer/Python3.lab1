@@ -116,7 +116,8 @@ class Main(object):
         if key.lower() == 'quit':
             return
         if key not in self.__city.sensors.keys():
-            print('Sensor not found')
+            print('Error! Sensor not found')
+            return
         print(self.__city.sensors[key]) # неявный вызов __str__(self)
 
     def __optimise(self):
