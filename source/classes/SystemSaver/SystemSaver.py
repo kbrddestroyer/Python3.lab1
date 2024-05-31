@@ -2,31 +2,51 @@ import json
 from pydoc import locate
 import classes
 
+# ТУТ НАЧИНАЕТСЯ МАГИЯ АВТОМАТИЧЕСКОГО СОХРАНЕНИЯ
+# Система работает следующим образом: когда ты создаешь класс,
+# который планируется сохранять в файл, нужно отнаследовать его от ISerializable
+# Таким образом он начнет включать всю логику этого класса
+# ISerializable построен таким образом, что при вызове его конструктора
+# он помещает экземпляр созданного класса в словарь под тегом класса-наследника
+# Если в kwargs конструктора передана data то класс действует иначе
+# Помимо размещения в dict скрипт копирует данные из data, которые считается что взяты из
+# JSON файла и подготовлены при помощи SystemSaver
+#
+# SystemSaver - класс отвечающий за работу ввода/вывода в файловую систему
+# Для того, чтобы не завязываться на логику каких-либо сторонних пакетов для сериализации
+# я сделал простой парсер в JSON
+# Благо, Python3 позволяет быстро конвертировать объекты в dict и наоборот
+# Для получения словаря из объекта используется функция vars(__ob), которая, по сути, возвращает
+# __ob.__dict__()
+# Для десериалилзации происходит проход по keys() data и для каждого ключа происходит проверка
+# hasattr
+# если атрибут есть в классе - он назначается через setattr
+
 
 class ISerializable(object):
     def __init__(self, **kwargs):
         assert classes.g_saver is not None
-        classes.g_saver.register(self)
+        classes.g_saver.register(self)      # Объект помечен к сохранению и добавлен в пул
         data = kwargs.get('data', None)
         if data is None:
             return
 
         for key, value in data.items():
             if hasattr(self, key):
-                setattr(self, key, value)
+                setattr(self, key, value)   # Собственно, десериализация (см. выше)
 
     def __del__(self):
-        classes.g_saver.unregister(self)
+        classes.g_saver.unregister(self)    # Удаление из пула если объект удален раньше времени (не будет сохранен)
 
     def getJSON(self):
-        return vars(self)
+        return vars(self)   # Собственно, JSON (см. выше)
 
 
 class SystemSaver(object):
-    FILENAME = 'test.json'
+    FILENAME = 'test.json'      # Файл, куда сохранять и откуда читать
     DELAYED_TYPES = (
         'classes.City.City',
-        'classes.SmartCity',
+        'classes.SmartCity',    # см. ниже
     )
 
     def __init__(self):
@@ -42,13 +62,16 @@ class SystemSaver(object):
         output = open(self.FILENAME, 'w')
         blob = {}
         for serializable in self.__serializables:
+            # Ключ - название класса и модуля
+            # например
+            # classes.City.City
             key = f'{serializable.__class__.__module__}.{serializable.__class__.__name__}'
             if key not in blob.keys():
                 blob[key] = []
             blob[key].append(serializable.getJSON())
         output.write(json.dumps(blob, indent=4))
         output.close()
-        print('saved')
+        print('Saved data file')
 
     def load(self):
         try:
@@ -75,7 +98,7 @@ class SystemSaver(object):
 
         for classname, settings in data.items():
             driver = locate(classname)
-            if classname in self.DELAYED_TYPES:
+            if classname in SystemSaver.DELAYED_TYPES:
                 delayed.append((driver, settings))
                 continue
             assert driver is not None

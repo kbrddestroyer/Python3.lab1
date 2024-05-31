@@ -1,0 +1,70 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+[*] --> Loading
+
+state menu <<fork>>
+
+Loading --> menu
+
+menu --> PrintCityInformation
+menu --> PrintTransport
+menu --> PrintServices
+menu --> GetSensors
+state GetSensors {
+    [*] --> printSensors
+    printSensors --> chooseSensor
+    chooseSensor --> printSensorInfo
+    printSensorInfo --> [*]
+}
+menu --> AddTransport
+state AddTransport {
+    state chooseTransport <<fork>>
+    [*] --> userChoise
+    userChoise --> chooseTransport
+    chooseTransport --> addCar
+    chooseTransport --> addPublic
+    state final<<join>>
+    addCar --> final
+    addPublic --> final
+    final --> [*]
+}
+menu --> RemoveTransport
+state RemoveTransport {
+    [*] --> chooseID
+    chooseID --> deleteTransport
+    deleteTransport --> [*]
+}
+menu --> GetTrafficStats
+menu --> OptimiseElectricity
+state OptimiseElectricity {
+    [*] --> getElectricitySensor
+    getElectricitySensor --> optimise
+    optimise --> [*]
+}
+menu --> Ticket
+state Ticket {
+    [*] --> PrintCityInformation
+    [*] --> PrintTransport
+    [*] --> PrintServices
+    [*] --> PrintSensors
+}
+
+menu --> tick
+
+state loop<<join>>
+PrintCityInformation --> loop
+PrintTransport --> loop
+PrintServices --> loop
+GetSensors --> loop
+AddTransport --> loop
+RemoveTransport --> loop
+GetTrafficStats --> loop
+OptimiseElectricity --> loop
+Ticket --> loop
+tick --> loop
+loop --> menu
+
+menu --> save
+save --> [*]
+@enduml

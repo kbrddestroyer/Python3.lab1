@@ -4,7 +4,9 @@ import classes.globals as globals
 ID = 0
 
 if not hasattr(globals, 'g_trafficObjectPool'):
+    # если objectPool не был создан - создать
     globals.g_trafficObjectPool = {}
+
 
 class TrafficObject(ISerializable):
     def __init__(self, **kwargs):

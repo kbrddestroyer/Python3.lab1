@@ -3,11 +3,16 @@ from classes.Controls.Sensors.TrafficControl import TrafficControl
 from classes.TrafficSystem.Car import Car
 from classes.TrafficSystem.PublicTransport import PublicTransport
 
+from classes.Service.Service import Service
 
-class TrafficManager(object):
+# Сервисный класс для ввода/вывода информации о транспорте
+
+
+class TrafficManager(Service):
     def __init__(self, city: SmartCity):
         self.__city = city
         self.__trafficControl: TrafficControl = self.__city.sensors['TrafficControl']
+        super(TrafficManager, self).__init__()
 
     def getTransport(self):
         for ID, transport in enumerate(self.__city.transport):
@@ -29,13 +34,24 @@ class TrafficManager(object):
         ob = None
 
         name = input('Name your transport: ')
-        try:
-            capacity = int(input('Capacity: '))
-            pollution = float(input('Pollution: '))
-            speed = int(input('Speed: '))
-        except ValueError:
-            print('Invalid input data!')
-            return
+        capacity = 0
+        while capacity <= 0:
+            try:
+                capacity = int(input('Capacity: '))
+            except ValueError:
+                capacity = 0
+        pollution = 0
+        while pollution <= 0:
+            try:
+                pollution = float(input('Pollution: '))
+            except ValueError:
+                pollution = 0
+        speed = 0
+        while speed <= 0:
+            try:
+                speed = int(input('Speed: '))
+            except ValueError:
+                speed = 0
         if type == 1:
             manufacturer = input('Manufacturer: ')
             ob = Car(name=name, manufacturer=manufacturer, capacity=capacity, pollution=pollution, speed=speed)
@@ -57,8 +73,14 @@ class TrafficManager(object):
         if key >= len(self.__city.c_transport):
             print('Invalid ID')
             return
+        transport = self.__city.transport[key]
         self.__city.transport.removeById(key)
+        del transport
 
     def getTrafficControlStats(self):
         self.__trafficControl.countPassengerFlow(self.__city.transport)
         print(self.__trafficControl)
+
+    def __str__(self):
+        self.__trafficControl.countPassengerFlow(self.__city.transport)
+        return self.__trafficControl.__str__()
