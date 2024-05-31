@@ -63,7 +63,13 @@ class Main(object):
         print('5. Add transport')
         print('6. Remove transport')
         print('q. Quit')
-        return input(':')
+        inputData = input(':')
+
+        if inputData not in ('1', '2', '3', '4', '5', '6', 'q'):
+            print('Invalid input')
+            return 0
+
+        return inputData
 
     def __initCity(self):
         print('Program did not found any CITY entity stored')

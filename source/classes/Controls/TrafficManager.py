@@ -16,7 +16,11 @@ class TrafficManager(object):
     def addTransport(self):
         print('TRANSPORT MENU')
         print('TYPE: ')
-        type = int(input('(1 - Car | 2 - Public) '))
+        try:
+            type = int(input('(1 - Car | 2 - Public) '))
+        except ValueError:
+            print('Invalid input data!')
+            return
 
         if type not in (1, 2):
             print('Invalid input data')
@@ -25,10 +29,13 @@ class TrafficManager(object):
         ob = None
 
         name = input('Name your transport: ')
-        capacity = int(input('Capacity: '))
-        pollution = float(input('Pollution: '))
-        speed = int(input('Speed: '))
-
+        try:
+            capacity = int(input('Capacity: '))
+            pollution = float(input('Pollution: '))
+            speed = int(input('Speed: '))
+        except ValueError:
+            print('Invalid input data!')
+            return
         if type == 1:
             manufacturer = input('Manufacturer: ')
             ob = Car(name=name, manufacturer=manufacturer, capacity=capacity, pollution=pollution, speed=speed)
@@ -41,7 +48,12 @@ class TrafficManager(object):
 
     def removeTransport(self):
         self.getTransport()
-        key = int(input('ID: '))
+        try:
+            key = int(input('ID: '))
+        except ValueError:
+            print('Wrong input!')
+            return
+
         if key >= len(self.__city.c_transport):
             print('Invalid ID')
             return
