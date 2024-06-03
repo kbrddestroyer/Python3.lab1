@@ -1,9 +1,8 @@
-from classes.City import City
-from classes.Controls.SensorObject import g_sensorObjectPool
-from classes.Controls.Sensors.GasSensor import GasSensor
-from classes.Controls.Sensors.TrafficControl import TrafficControl
-from classes.Controls.Sensors.ElectricitySensor import ElectricitySensor
-
+from City import City
+from Controls.SensorObject import g_sensorObjectPool
+from Controls.Sensors.GasSensor import GasSensor
+from Controls.Sensors.TrafficControl import TrafficControl
+from Controls.Sensors.ElectricitySensor import ElectricitySensor
 
 class SensorDictWrapper(object):
     # см. TransportListWrapper
@@ -12,6 +11,7 @@ class SensorDictWrapper(object):
         self.c_dict: dict = c_dict
 
     def __getitem__(self, item):
+        print(self.c_dict[item])
         return g_sensorObjectPool[self.c_dict[item]]
 
     def __iter__(self):

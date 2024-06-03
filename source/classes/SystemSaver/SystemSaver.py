@@ -74,6 +74,7 @@ class SystemSaver(object):
         print('Saved data file')
 
     def load(self):
+        print(self.FILENAME)
         try:
             inputData = open(self.FILENAME, 'r')
         except FileNotFoundError:
