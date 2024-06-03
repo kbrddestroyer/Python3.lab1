@@ -47,6 +47,8 @@ Unit-тесты работают с pytest и monkeypatch
 
 Для запуска необходимо запустить dev.tests.supertest.py или отдельный тест из этого файла
 
+Тестирование автоматизированно
+
 ### Полезные ссылки
 
 - [PyTest (Habr)](https://habr.com/ru/articles/269759/)
